@@ -44,6 +44,8 @@ function App() {
           <ul className="flex">
             {
               notes.map((note, i)=>{
+                console.log(note)
+                console.log(i)
                 return <li key={i} className="card">
                   <h2 className="flex">
                     {note.title}
