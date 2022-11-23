@@ -1,0 +1,63 @@
+h1,h2 {
+  margin: 0;
+  font-weight: normal;
+}
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.flex {
+  flex-wrap: wrap;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+nav {
+  height: 50px;
+  line-height: 50px;
+  background: black;
+  color: white;
+  padding: 0 10px;
+}
+nav input {
+  flex: 1 1 50%;
+  margin: 0 20px;
+}
+form input {
+  width: 100%;
+  display: block;
+  height: 40px;
+  line-height: 40px;
+  box-sizing: border-box;
+  border: none;
+  border-top: 1px solid black;
+  background: none;
+  outline: none;
+}
+.card {
+  flex: 0 0 calc(20% - 20px);
+  box-shadow: 0 0 5px black;
+  margin: 10px 10px 0;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.relative {
+  position: relative;
+}
+.relative button{
+  position: absolute;
+  right: 10px;
+  top: 8px;
+  border: none;
+}
+@media screen and (max-width: 920px) {
+  .card {
+    flex: 0 0 calc(50% - 20px);
+  }
+}
+@media screen and (max-width: 720px) {
+  .card {
+    flex: 0 0 calc(100% - 20px);
+  }
+}
