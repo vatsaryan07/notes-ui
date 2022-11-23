@@ -9,9 +9,15 @@ function App() {
   const [now, setNow] = useState()
   const [draw, setDraw] = useState(false)
   const [lines, setLines] = useState([])
-  // useEffect(()=>{
-  //   setLines(JSON.parse(localStorage.getItem('lines') || '[]' ))
-  // }, [])
+  
+  const [linestore, setLinesStore] = useState([])
+  useEffect(()=>{
+    setLines(JSON.parse(localStorage.getItem('lines') || '[]' ))
+  }, [])
+
+  useEffect(()=>{
+    setLinesStore([])
+  }, [])
   useEffect(()=>{
     setNotes(JSON.parse(localStorage.getItem('notes') || '[]' ))
   }, [])

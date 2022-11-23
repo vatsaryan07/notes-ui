@@ -102,7 +102,7 @@ function App(props) {
       </nav>
       <Select placeholder = 'Show Draw Board' values = {selectedOption} options={data} onChange={handleChange}/>
       {/* <Notes/> */}
-      {selectedOption && selectedOption.value &&<Notes prelines={lines}/>}
+      {selectedOption && selectedOption.value &&<Notes title={title}/>}
       {console.log(selectedOption)}
       <form>
           {
