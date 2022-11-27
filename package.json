@@ -12,6 +12,7 @@
     "react-konva": "^18.2.3",
     "react-scripts": "5.0.1",
     "react-select": "^5.6.1",
+    "sentiment": "^5.0.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

@@ -1,3 +1,7 @@
+body {
+  position: relative;
+  user-select: none;
+}
 h1,h2 {
   margin: 0;
   font-weight: normal;
@@ -22,9 +26,18 @@ nav {
 }
 nav input {
   flex: 1 1 50%;
-  margin: 0 20px;
+  margin: 0 10px;
 }
-form input {
+nav button {
+  background: none;
+  color: white;
+  border: 1px solid white;
+}
+nav button.active {
+  background: steelblue;
+
+}
+form .item {
   width: 100%;
   display: block;
   height: 40px;
@@ -34,6 +47,11 @@ form input {
   border-top: 1px solid black;
   background: none;
   outline: none;
+  font-family: Courier;
+  white-space: nowrap;
+}
+.card-box {
+  justify-content: flex-start;
 }
 .card {
   flex: 0 0 calc(20% - 20px);
@@ -50,6 +68,52 @@ form input {
   right: 10px;
   top: 8px;
   border: none;
+}
+.rect-action {
+  display: inline-block;
+  width: 44px;
+  background: none;
+  box-sizing: border-box;
+}
+
+.delete-canvas , .rect-canvas  {
+  position: absolute;
+  top: 88px;
+  left: 0;
+  width: 100%;
+  height: calc(100% - 88px);
+  z-index: 1000;
+}
+.delete-canvas {
+  z-index: 10002;
+}
+.rect-text,.rect-span {
+  position: absolute;
+  z-index: 1001;
+  margin-top:88px;
+}
+.rect-span {
+  z-index: 1002;
+}
+.rect-span {
+  padding: 2px 8px;
+  margin-left: 5px;
+  
+}
+.rect-span::before {
+  content: ' ';
+  display: block;
+  width: 0;
+  height: 0;
+  border-width: 5px;
+  border-style: solid;
+  border-right-color: transparent;
+  border-left-color: rgb(26, 26, 176);
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  position: absolute;
+  left: -5px;
+  top: -1px;
 }
 @media screen and (max-width: 920px) {
   .card {

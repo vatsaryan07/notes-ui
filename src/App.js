@@ -47,7 +47,7 @@ function App() {
             <h1>notes</h1>
             <button onClick={()=>{setShow(true)}}>add</button>
           </nav>
-          <ul className="flex">
+          <ul className="flex card-box">
             {
               notes.map((note, i)=>{
                 console.log(note)
