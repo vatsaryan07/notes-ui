@@ -25,7 +25,14 @@ const Notes = (props) => {
         var store = JSON.parse(localStorage.getItem('linestore'))
         var k = store.filter((val)=> val.title === props.title)
         // console.log(k[0].lines)
-        setLines([...k[0].lines])
+        if(k.length !== 0){
+            // console.log('k exists')
+            // console.log(k.length)
+            setLines([...k[0].lines])
+        }
+        else{
+            setLines([])
+        }
         // console.log(store[0].title)
         // store.map((note,i)=>{
         //     if(note.title === props.title){
@@ -97,8 +104,8 @@ const Notes = (props) => {
         var flag = false
 
         if(
-            gest_record[0][0] >= 2175 && 
-            gest_record[0][0] <= 2225 &&
+            gest_record[0][0] >= window.innerWidth - 125 && 
+            gest_record[0][0] <= window.innerWidth - 75 &&
             gest_record[0][1]%100 >= 35 &&
             gest_record[0][1]%100 <= 65)
             {
@@ -127,8 +134,8 @@ const Notes = (props) => {
                 }
                 localStorage.setItem('linestore',JSON.stringify(prevstore))
             }
-        if((gest_record[0][0]<100 && gest_record[0][1]<100) && (gest_record[gest_record.length - 1][0]>1530 && gest_record[gest_record.length - 1][1]>915) ||
-        (gest_record[gest_record.length - 1][0]<30 && gest_record[gest_record.length - 1][1]<30) && (gest_record[0][0]>915 && gest_record[0][1]>915)){
+        if((gest_record[0][0]<100 && gest_record[0][1]<100) && (gest_record[gest_record.length - 1][0]>window.innerWidth*3/5 && gest_record[gest_record.length - 1][1]>window.innerHeight*3/4) ||
+        (gest_record[gest_record.length - 1][0]<30 && gest_record[gest_record.length - 1][1]<30) && (gest_record[0][0]>window.innerWidth*3/5 && gest_record[0][1]>window.innerHeight*3/4)){
             flag = true
             console.log("Calling clear")
             var stage = e.target.getStage()
@@ -206,7 +213,7 @@ const Notes = (props) => {
                 <Layer id='draw_layer'>
                     {
                         p.map(element => {
-                            return <Rect x= {2200}
+                            return <Rect x= {window.innerWidth - 100}
                             key = {element}
                             y={element}
                             width={50}
