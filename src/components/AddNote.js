@@ -95,8 +95,28 @@ function App(props) {
   const setIpt = (e, i) => {
     console.log(e.target.innerText, 8888)
     var arr = [...content]
+
     arr[i] = e.target.innerText
-    setContent(arr)
+    if(e.target.innerText.length*10 >= +window.innerWidth) {
+      // console.log('overflow')
+      let inputs = document.getElementsByClassName('item')
+      let ipt = inputs[+i+1]
+      if (ipt) {
+        ipt.focus()
+      } else{
+          console.log('last row')
+      }
+    }else {
+      arr[i] = e.target.innerText
+      setContent(arr)
+      let selection = window.getSelection()
+      let range = document.createRange()
+      range.selectNodeContents(e.target)
+      selection.removeAllRanges()
+      selection.addRange(range)
+      range.setStart(e.target, 1)
+      range.setEnd(e.target, 1)
+    }
   }
   // Remove an emotion analysis
   const removeSentiment = (i) => {
@@ -341,13 +361,58 @@ function App(props) {
     }
 
   }
+  const keyUpIpt = e => {
+    e.preventDefault()
+    let inputs = document.getElementsByClassName('item')
+    if(e.keyCode === 13){
+      let ipt = inputs[+e.target.id+1]
+      if (ipt) {
+        ipt.focus()
+      } else{
+          console.log('last row')
+      }
+  }
+  }
+  const mouseDownSentiment = (i, e)=>{
+    let arr = [...(JSON.parse(JSON.stringify(ref.sentiments)) || [])]
+    let span = {...(arr[i].span || {})}
+    let diffX =  e.nativeEvent.offsetX
+    let diffY = e.nativeEvent.offsetY
+    let style = {
+      ...(span.style || {})
+    }
+    const  moveSentiment = e => {
+      if(span) {
+        let left = (e.pageX  - diffX ) + 'px'
+        let top = (e.pageY - 88 - diffY) + 'px'
+        e.target.style.left = left
+        e.target.style.top = top
+        arr[i].span.style = {
+         
+            ...style,
+            left,
+            top
+          
+          
+        }
+        setSentiments(arr)
+      }
+    }
+    const  mouseUpSentiment = e => {
+      window.removeEventListener('mousemove', moveSentiment)
+      window.removeEventListener('mouseup', mouseUpSentiment)
+    }
+    window.addEventListener('mousemove', moveSentiment)
+    window.addEventListener('mouseup', mouseUpSentiment)
+    
+  }
   return (
     <div className="modal">
       {
         (sentiments || []).map((item, i) => {
           return <div onDoubleClick={() => { removeSentiment(i) }}>
             <div className="rect-text" style={item.style}></div>
-            {item.span && <span className="rect-span" style={item.span.style} dangerouslySetInnerHTML={{ __html: item.span.html }} ></span>}
+            {item.span && <span onMouseDown={e=>{mouseDownSentiment(i, e)}} className="rect-span" style={item.span.style} dangerouslySetInnerHTML={{ __html: item.span.html }} ></span>}
 
           </div>
         })
@@ -371,7 +436,7 @@ function App(props) {
         {
           content.map((item, i) => {
             return <div className="relative">
-              <div key={i} suppressContentEditableWarning contentEditable="true" className="item" onBlur={(e) => { setIpt(e, i) }} >{item}</div>
+              <div id={i} onKeyUp={keyUpIpt} key={i} suppressContentEditableWarning contentEditable="true" className="item" onInput={(e) => { setIpt(e, i) }} >{item}</div>
               {/* {item &&　<button type="button" onClick={()=>{deleteRowContent(i)}}>✖</button>} */}
 
             </div>
