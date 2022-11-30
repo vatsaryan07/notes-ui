@@ -166,12 +166,17 @@ function App(props) {
       return
     }
     ele.style = {
+      //update current x y to the size of the rect
       width: `${ele.w}px`,
       height: `${ele.h}px`,
       top: `${ele.top}px`,
       left: `${ele.left}px`,
+      //set color to a 
       background: `${colors[(arr.length - 1) % 10]}`,
+      //border to this color
       border: '1px solid rgb(26,26,176)',
+      //z-index property which lets us control the order in which components are displayed over one another
+      //this makes the effect
       zIndex: 1
     }
     setSentiments(arr)
