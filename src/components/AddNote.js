@@ -166,17 +166,12 @@ function App(props) {
       return
     }
     ele.style = {
-      //update current x y to the size of the rect
       width: `${ele.w}px`,
       height: `${ele.h}px`,
       top: `${ele.top}px`,
       left: `${ele.left}px`,
-      //set color to a 
       background: `${colors[(arr.length - 1) % 10]}`,
-      //border to this color
       border: '1px solid rgb(26,26,176)',
-      //z-index property which lets us control the order in which components are displayed over one another
-      //this makes the effect
       zIndex: 1
     }
     setSentiments(arr)
@@ -190,7 +185,7 @@ function App(props) {
 
     let arr = [...(JSON.parse(JSON.stringify(ref.sentiments)) || [])]
     let ele = arr[arr.length - 1] || { style: {} }
-    ele.style.zIndex = 10001
+    ele.style.zIndex = 1001
 
     if (!ele.w || !ele.h || ele.w < 6 || ele.h < 6) {
       arr.splice(arr.length - 1, 1)
@@ -387,25 +382,24 @@ function App(props) {
       ...(span.style || {})
     }
     const  moveSentiment = e => {
-      if(span) {
+      if(span && e.target.id === 'rectSpan'+i) {
         let left = (e.pageX  - diffX ) + 'px'
         let top = (e.pageY - 88 - diffY) + 'px'
         e.target.style.left = left
         e.target.style.top = top
         arr[i].span.style = {
-         
             ...style,
             left,
             top
-          
-          
         }
         setSentiments(arr)
       }
     }
     const  mouseUpSentiment = e => {
+      
       window.removeEventListener('mousemove', moveSentiment)
       window.removeEventListener('mouseup', mouseUpSentiment)
+      setSentiments(JSON.parse(JSON.stringify(arr)))
     }
     window.addEventListener('mousemove', moveSentiment)
     window.addEventListener('mouseup', mouseUpSentiment)
@@ -417,7 +411,7 @@ function App(props) {
         (sentiments || []).map((item, i) => {
           return <div onDoubleClick={() => { removeSentiment(i) }}>
             <div className="rect-text" style={item.style}></div>
-            {item.span && <span onMouseDown={e=>{mouseDownSentiment(i, e)}} className="rect-span" style={item.span.style} dangerouslySetInnerHTML={{ __html: item.span.html }} ></span>}
+            {item.span && <span id={'rectSpan'+i} onMouseDown={e=>{mouseDownSentiment(i, e)}} className="rect-span" style={item.span.style} dangerouslySetInnerHTML={{ __html: item.span.html }} ></span>}
 
           </div>
         })
